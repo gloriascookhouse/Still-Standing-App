@@ -1,5 +1,5 @@
 // Load daily message
-fetch('./content/messages.json')
+fetch('./messages.json')
   .then(res => res.json())
   .then(data => {
     const activeMessage = data.find(msg => msg.active);
@@ -10,7 +10,7 @@ fetch('./content/messages.json')
   .catch(err => console.error('Error loading messages:', err));
 
 // Load articles
-fetch('./content/articles.json')
+fetch('./articles.json')
   .then(res => res.json())
   .then(articles => {
     const container = document.getElementById('articles');
@@ -23,7 +23,7 @@ fetch('./content/articles.json')
   .catch(err => console.error('Error loading articles:', err));
 
 // Load calm content
-fetch('./content/calm.json')
+fetch('./calm.json')
   .then(res => res.json())
   .then(calm => {
     document.getElementById('calmTitle').innerText = calm.title;
