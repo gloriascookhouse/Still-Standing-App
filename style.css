@@ -1,48 +1,40 @@
-/* Basic page styling */
 body {
   font-family: 'Helvetica', Arial, sans-serif;
   background-color: #fdfaf6; /* soft cream */
-  color: #000; /* black text */
+  color: #000;
   margin: 0;
   padding: 20px;
 }
 
-/* Headings */
+h1, h2, h3 {
+  color: #2a6fcb; /* light blue headings */
+}
+
 h1 {
-  color: #2a6fcb; /* light blue */
   font-size: 2em;
   margin-bottom: 20px;
 }
 
 h2 {
-  color: #2a6fcb; /* same light blue for section titles */
   margin-top: 30px;
   margin-bottom: 10px;
 }
 
 h3 {
-  color: #2a6fcb;
   margin-bottom: 5px;
 }
 
-/* Paragraphs */
 p {
   font-size: 1em;
   line-height: 1.5em;
   margin-bottom: 15px;
 }
 
-/* Articles container */
 #articles div {
-  background-color: #e9f0fb; /* very light blue for article background */
+  background-color: #e9f0fb; /* very light blue */
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 8px;
-}
-
-/* Calm section styling */
-#calmTitle {
-  color: #2a6fcb;
 }
 
 #calmBody {
