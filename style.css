@@ -1,13 +1,16 @@
+/* General Body */
 body {
   font-family: 'Helvetica', Arial, sans-serif;
   background-color: #fdfaf6; /* soft cream */
   color: #000;
   margin: 0;
   padding: 20px;
+  transition: background 0.3s ease;
 }
 
+/* Headings */
 h1, h2, h3 {
-  color: #2a6fcb; /* light blue headings */
+  color: #2a6fcb; /* light blue */
 }
 
 h1 {
@@ -24,23 +27,67 @@ h3 {
   margin-bottom: 5px;
 }
 
+/* Paragraphs */
 p {
   font-size: 1em;
   line-height: 1.5em;
   margin-bottom: 15px;
 }
 
-#articles div {
-  background-color: #e9f0fb; /* very light blue */
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 8px;
+/* Message & Calm Cards */
+#dailyMessage, #calmBody {
+  background-color: #fffdf5; /* cream */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#calmBody {
-  background-color: #fffdf5; /* cream */
-  padding: 15px;
+#dailyMessage:hover, #calmBody:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Articles Cards */
+#articles div {
+  background-color: #e9f0fb; /* very light blue */
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#articles div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.12);
+}
+
+/* Buttons */
+button {
+  background-color: #2a6fcb;
+  color: #fff;
+  border: none;
   border-radius: 8px;
-  font-size: 1.1em;
-  line-height: 1.6em;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #1d4f9a;
+  transform: translateY(-2px);
+}
+
+/* Container spacing */
+#articles, #calmBody {
+  margin-top: 15px;
+}
+
+/* Smooth text changes */
+#dailyMessage, #calmBody, #articles div {
+  transition: all 0.3s ease;
 }
