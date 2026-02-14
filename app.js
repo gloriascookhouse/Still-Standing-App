@@ -1,67 +1,71 @@
-// GLOBAL VARIABLES
-let currentMessageIndex = 0;
-let messagesData = [];
-let calmData = [];
+let messageIndex = 0;
+let articleIndex = 0;
+let calmIndex = 0;
 
-// ---------- LOAD MESSAGES ----------
+let messages = [];
+let articles = [];
+let calmTips = [];
+
+// Load Messages
 fetch('./messages.json')
   .then(res => res.json())
   .then(data => {
-    messagesData = data;
-    // Find first active message index
-    const activeIndex = messagesData.findIndex(msg => msg.active);
-    currentMessageIndex = activeIndex !== -1 ? activeIndex : 0;
-    showMessage(currentMessageIndex);
-  })
-  .catch(err => console.error('Error loading messages:', err));
+    messages = data;
+    showMessage();
+  });
 
-function showMessage(index) {
-  const msg = messagesData[index];
-  if (msg) {
-    document.getElementById('dailyMessage').innerText = msg.message;
+function showMessage() {
+  if (messages.length > 0) {
+    document.getElementById('dailyMessage').innerText =
+      messages[messageIndex].message;
   }
 }
 
-// Next Message Button
-const nextBtn = document.createElement('button');
-nextBtn.innerText = 'Next Message';
-nextBtn.onclick = () => {
-  currentMessageIndex = (currentMessageIndex + 1) % messagesData.length;
-  showMessage(currentMessageIndex);
+document.getElementById('nextMessageBtn').onclick = () => {
+  messageIndex = (messageIndex + 1) % messages.length;
+  showMessage();
 };
-document.body.insertBefore(nextBtn, document.getElementById('articles'));
 
-// ---------- LOAD ARTICLES ----------
+// Load Articles
 fetch('./articles.json')
   .then(res => res.json())
-  .then(articles => {
-    const container = document.getElementById('articles');
-    articles.forEach(a => {
-      const div = document.createElement('div');
-      div.innerHTML = `<h3>${a.title}</h3><p>${a.body}</p>`;
-      container.appendChild(div);
-    });
-  })
-  .catch(err => console.error('Error loading articles:', err));
+  .then(data => {
+    articles = data;
+    showArticle();
+  });
 
-// ---------- LOAD CALM CONTENT ----------
+function showArticle() {
+  if (articles.length > 0) {
+    document.getElementById('articleTitle').innerText =
+      articles[articleIndex].title;
+    document.getElementById('articleBody').innerText =
+      articles[articleIndex].body;
+  }
+}
+
+document.getElementById('nextArticleBtn').onclick = () => {
+  articleIndex = (articleIndex + 1) % articles.length;
+  showArticle();
+};
+
+// Load Calm Tips
 fetch('./calm.json')
   .then(res => res.json())
   .then(data => {
-    calmData = [data]; // wrap single calm tip in array
+    calmTips = Array.isArray(data) ? data : [data];
     showCalm();
-  })
-  .catch(err => console.error('Error loading calm content:', err));
+  });
 
 function showCalm() {
-  const calmIndex = Math.floor(Math.random() * calmData.length);
-  const calm = calmData[calmIndex];
-  document.getElementById('calmTitle').innerText = calm.title;
-  document.getElementById('calmBody').innerText = calm.body;
+  if (calmTips.length > 0) {
+    document.getElementById('calmTitle').innerText =
+      calmTips[calmIndex].title;
+    document.getElementById('calmBody').innerText =
+      calmTips[calmIndex].body;
+  }
 }
 
-// Random Calm Button
-const calmBtn = document.createElement('button');
-calmBtn.innerText = 'New Calm Tip';
-calmBtn.onclick = showCalm;
-document.body.insertBefore(calmBtn, document.getElementById('calmBody'));
+document.getElementById('nextCalmBtn').onclick = () => {
+  calmIndex = (calmIndex + 1) % calmTips.length;
+  showCalm();
+};
