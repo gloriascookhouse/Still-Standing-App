@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Still Standing</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeSpace</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div class="container">
 
-    <section class="card">
-      <h1>Daily Message</h1>
-      <p id="dailyMessage">Loading message...</p>
-      <button id="nextMessageBtn">Next Message</button>
-    </section>
+    <h1>SafeSpace</h1>
+    <p class="subtitle">
+      A calm place for thoughtful messages and helpful articles.
+    </p>
 
-    <section class="card">
-      <h2>Article</h2>
-      <h3 id="articleTitle"></h3>
-      <p id="articleBody"></p>
-      <button id="nextArticleBtn">Next Article</button>
-    </section>
+    <!-- MESSAGE SECTION -->
+    <div class="card">
+      <div class="section-title">
+        💬 Message
+        <span id="messageCounter" style="float:right; font-size:0.9rem; color:#777;"></span>
+      </div>
 
-    <section class="card">
-      <h2>Calm</h2>
-      <h3 id="calmTitle"></h3>
-      <p id="calmBody"></p>
-      <button id="nextCalmBtn">Next Calm Tip</button>
-    </section>
+      <div id="message" class="content-text">
+        Loading...
+      </div>
+
+      <button onclick="nextMessage()">Next Message</button>
+    </div>
+
+
+    <!-- CALM SECTION -->
+    <div class="card">
+      <div class="section-title">
+        🌿 Calm
+        <span id="calmCounter" style="float:right; font-size:0.9rem; color:#777;"></span>
+      </div>
+
+      <div id="calm" class="content-text">
+        Loading...
+      </div>
+
+      <button onclick="nextCalm()">Next Calm</button>
+    </div>
+
+
+    <!-- ARTICLE SECTION -->
+    <div class="card">
+      <div class="section-title">
+        📖 Article
+        <span id="articleCounter" style="float:right; font-size:0.9rem; color:#777;"></span>
+      </div>
+
+      <div id="article" class="content-text">
+        Loading...
+      </div>
+
+      <button onclick="nextArticle()">Next Article</button>
+    </div>
+
+
+    <footer>
+      © 2026 SafeSpace
+    </footer>
 
   </div>
 
