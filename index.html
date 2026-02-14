@@ -6,15 +6,29 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 id="dailyMessage">Loading message...</h1>
 
-  <h2>Articles</h2>
-  <div id="articles"></div>
+  <div class="container">
 
-  <h2>Calm</h2>
-  <div>
-    <h3 id="calmTitle"></h3>
-    <p id="calmBody"></p>
+    <section class="card">
+      <h1>Daily Message</h1>
+      <p id="dailyMessage">Loading message...</p>
+      <button id="nextMessageBtn">Next Message</button>
+    </section>
+
+    <section class="card">
+      <h2>Article</h2>
+      <h3 id="articleTitle"></h3>
+      <p id="articleBody"></p>
+      <button id="nextArticleBtn">Next Article</button>
+    </section>
+
+    <section class="card">
+      <h2>Calm</h2>
+      <h3 id="calmTitle"></h3>
+      <p id="calmBody"></p>
+      <button id="nextCalmBtn">Next Calm Tip</button>
+    </section>
+
   </div>
 
   <script src="app.js"></script>
