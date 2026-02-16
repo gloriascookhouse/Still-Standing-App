@@ -1,69 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SafeSpace</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Second Act</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
+  <div class="app">
+    <header>
+      <h1>Second Act</h1>
+      <p class="tagline">Practical life navigation for adults rebuilding after 35.</p>
+    </header>
 
-    <h1>SafeSpace</h1>
-    <p class="subtitle">
-      A calm place for thoughtful messages and helpful articles.
-    </p>
+    <main>
+      <section class="card" onclick="openSection('anchors')">
+        <h2>Today’s Anchor</h2>
+        <p id="anchorPreview">Loading today’s orientation…</p>
+      </section>
 
-    <!-- MESSAGE SECTION -->
-    <div class="card">
-      <div class="section-title">
-        💬 Message
-        <span id="messageCounter" style="float:right; font-size:0.9rem; color:#777;"></span>
-      </div>
+      <section class="card" onclick="openSection('financial')">
+        <h2>Financial Pressure</h2>
+        <p>Stability before ambition. Practical thinking under money stress.</p>
+      </section>
 
-      <div id="message" class="content-text">
-        Loading...
-      </div>
+      <section class="card" onclick="openSection('immigration')">
+        <h2>Immigration & Systems</h2>
+        <p>Navigating unfamiliar systems without losing confidence.</p>
+      </section>
 
-      <button onclick="nextMessage()">Next Message</button>
+      <section class="card" onclick="openSection('burnout')">
+        <h2>Burnout & Mental Load</h2>
+        <p>Functioning while exhausted. Reducing internal pressure.</p>
+      </section>
+
+      <section class="card" onclick="openSection('relationships')">
+        <h2>Relationships & Isolation</h2>
+        <p>Carrying too much alone. Marriage strain and quiet loneliness.</p>
+      </section>
+
+      <button class="reset-button" onclick="openSection('reset')">
+        I need a reset
+      </button>
+    </main>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalText"></p>
+      <button onclick="nextItem()">Next</button>
     </div>
-
-
-    <!-- CALM SECTION -->
-    <div class="card">
-      <div class="section-title">
-        🌿 Calm
-        <span id="calmCounter" style="float:right; font-size:0.9rem; color:#777;"></span>
-      </div>
-
-      <div id="calm" class="content-text">
-        Loading...
-      </div>
-
-      <button onclick="nextCalm()">Next Calm</button>
-    </div>
-
-
-    <!-- ARTICLE SECTION -->
-    <div class="card">
-      <div class="section-title">
-        📖 Article
-        <span id="articleCounter" style="float:right; font-size:0.9rem; color:#777;"></span>
-      </div>
-
-      <div id="article" class="content-text">
-        Loading...
-      </div>
-
-      <button onclick="nextArticle()">Next Article</button>
-    </div>
-
-
-    <footer>
-      © 2026 SafeSpace
-    </footer>
-
   </div>
 
   <script src="app.js"></script>
