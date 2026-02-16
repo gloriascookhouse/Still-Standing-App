@@ -10,6 +10,7 @@ body {
   background-color: #f4f1ea;
   color: #2f3640;
   padding: 40px 20px;
+  transition: background 0.3s ease;
 }
 
 .app {
@@ -20,6 +21,7 @@ body {
 /* Header */
 header {
   margin-bottom: 40px;
+  text-align: center;
 }
 
 h1 {
@@ -31,31 +33,35 @@ h1 {
 .tagline {
   font-size: 0.95rem;
   color: #5f6a72;
+  font-style: italic;
 }
 
 /* Cards */
 .card {
   background: #ffffff;
-  padding: 20px;
+  padding: 22px;
   margin-bottom: 18px;
   border-radius: 8px;
   border: 1px solid #e0ddd6;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .card:hover {
   background: #f9f7f3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 .card h2 {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin-bottom: 8px;
 }
 
 .card p {
   font-size: 0.95rem;
   color: #5a646b;
+  line-height: 1.5;
 }
 
 /* Reset Button */
@@ -69,6 +75,7 @@ h1 {
   border-radius: 6px;
   font-size: 0.95rem;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .reset-button:hover {
@@ -79,7 +86,7 @@ h1 {
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.35);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,19 +101,28 @@ h1 {
   padding: 30px;
   width: 90%;
   max-width: 500px;
-  border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* subtle shadow added */
+  border-radius: 10px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
 .modal-content h2 {
   margin-bottom: 10px;
+  font-size: 1.25rem;
 }
 
 .modal-content p {
   margin-bottom: 16px;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 0.95rem;
 }
 
+/* Modal buttons */
 .modal-content button {
   padding: 10px 16px;
   border: none;
@@ -114,8 +130,14 @@ h1 {
   color: white;
   border-radius: 6px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
+.modal-content button:hover {
+  background: #1f252a;
+}
+
+/* Close button */
 .close-btn {
   background: none;
   color: #2f3640;
@@ -124,10 +146,46 @@ h1 {
   cursor: pointer;
 }
 
+/* Audio button placeholder */
+.audio-btn {
+  background: #f4f1ea;
+  border: 1px solid #2f3640;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  transition: all 0.2s ease;
+}
+
+.audio-btn:hover {
+  background: #eae6de;
+  transform: translateY(-1px);
+}
+
 /* Footer */
 footer {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 50px;
   font-size: 0.85rem;
   color: #8a8a8a;
+}
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+  body {padding: 20px 10px;}
+  .card {padding: 18px;}
+  h1 {font-size: 1.7rem;}
+  .modal-content {padding: 22px;}
+  .reset-button {padding: 12px;}
+}
+
+/* Modal text fade on next */
+.fade-text {
+  animation: textFade 0.25s ease;
+}
+
+@keyframes textFade {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
