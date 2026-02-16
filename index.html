@@ -16,27 +16,27 @@
 
     <main>
       <section class="card" onclick="openSection('anchors')">
-        <h2>Today’s Anchor</h2>
-        <p id="anchorPreview">Loading today’s orientation…</p>
+        <h2>🧭 Today’s Anchor</h2>
+        <p id="anchorPreview">Welcome! Your first anchor will appear here soon.</p>
       </section>
 
       <section class="card" onclick="openSection('financial')">
-        <h2>Financial Pressure</h2>
+        <h2>💰 Financial Pressure</h2>
         <p>Stability before ambition. Practical thinking under money stress.</p>
       </section>
 
       <section class="card" onclick="openSection('immigration')">
-        <h2>Immigration & Systems</h2>
+        <h2>🌍 Immigration & Systems</h2>
         <p>Navigating unfamiliar systems without losing confidence.</p>
       </section>
 
       <section class="card" onclick="openSection('burnout')">
-        <h2>Burnout & Mental Load</h2>
+        <h2>😮‍💨 Burnout & Mental Load</h2>
         <p>Functioning while exhausted. Reducing internal pressure.</p>
       </section>
 
       <section class="card" onclick="openSection('relationships')">
-        <h2>Relationships & Isolation</h2>
+        <h2>💍 Relationships & Isolation</h2>
         <p>Carrying too much alone. Marriage strain and quiet loneliness.</p>
       </section>
 
@@ -51,13 +51,16 @@
     <div class="modal-content">
       <button class="close-btn" onclick="closeModal()">×</button>
       <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
       <p id="modalText"></p>
       <button onclick="nextItem()">Next</button>
     </div>
   </div>
 
+  <footer>
+    <p>© 2026 Still Standing | A private support app for adults navigating life after 35.</p>
+  </footer>
+
   <script src="app.js"></script>
 </body>
 </html>
-
-
