@@ -95,14 +95,15 @@ h1 {
   width: 90%;
   max-width: 500px;
   border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* subtle shadow added */
 }
 
 .modal-content h2 {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .modal-content p {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   line-height: 1.6;
 }
 
@@ -121,4 +122,12 @@ h1 {
   font-size: 1.2rem;
   float: right;
   cursor: pointer;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.85rem;
+  color: #8a8a8a;
 }
