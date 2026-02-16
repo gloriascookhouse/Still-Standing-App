@@ -20,8 +20,9 @@ function openSection(section) {
     .then(res => res.json())
     .then(data => {
       sectionData = data;
+      // Capitalize first letter of section for modal title
       document.getElementById("modalTitle").innerText =
-        section.charAt(0).toUpperCase() + section.slice(1);
+        section.charAt(0).toUpperCase() + section.slice(1).replace(/([A-Z])/g, ' $1');
       document.getElementById("modalText").innerText = sectionData[currentIndex];
       document.getElementById("modal").classList.remove("hidden");
     });
