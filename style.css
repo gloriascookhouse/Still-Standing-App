@@ -1,4 +1,3 @@
-/* Reset & basics */
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +9,7 @@ body {
   background-color: #f4f1ea;
   color: #2f3640;
   padding: 40px 20px;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .app {
@@ -18,71 +17,77 @@ body {
   margin: auto;
 }
 
-/* Header */
-header {
-  margin-bottom: 40px;
-  text-align: center;
+/* HEADER */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: 1px solid #2f3640;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #2f3640;
+  color: white;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.9rem;
   font-weight: 500;
-  margin-bottom: 8px;
 }
 
 .tagline {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #5f6a72;
-  font-style: italic;
+  margin-top: 8px;
 }
 
-/* Cards */
+/* CARDS */
 .card {
-  background: #ffffff;
-  padding: 22px;
-  margin-bottom: 18px;
+  background: white;
+  padding: 20px;
+  margin-top: 18px;
   border-radius: 8px;
   border: 1px solid #e0ddd6;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: 0.25s ease;
 }
 
 .card:hover {
-  background: #f9f7f3;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
 
 .card h2 {
-  font-size: 1.15rem;
   margin-bottom: 8px;
+  font-size: 1.1rem;
 }
 
 .card p {
   font-size: 0.95rem;
-  color: #5a646b;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* Reset Button */
-.reset-button {
-  width: 100%;
-  padding: 14px;
-  margin-top: 20px;
-  background: #2f3640;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: 0.2s ease;
+/* DAILY CARD */
+.daily-card {
+  background: #fdfbf7;
+  border: 1px solid #d8d4cc;
 }
 
-.reset-button:hover {
-  background: #1f252a;
-}
-
-/* Modal */
+/* MODALS */
 .modal {
   position: fixed;
   inset: 0;
@@ -97,7 +102,7 @@ h1 {
 }
 
 .modal-content {
-  background: #ffffff;
+  background: white;
   padding: 30px;
   width: 90%;
   max-width: 500px;
@@ -107,85 +112,69 @@ h1 {
 }
 
 @keyframes fadeIn {
-  from {opacity: 0; transform: translateY(-10px);}
+  from {opacity: 0; transform: translateY(-8px);}
   to {opacity: 1; transform: translateY(0);}
 }
 
-.modal-content h2 {
-  margin-bottom: 10px;
-  font-size: 1.25rem;
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
 }
 
-.modal-content p {
-  margin-bottom: 16px;
-  line-height: 1.7;
-  font-size: 0.95rem;
-}
-
-/* Modal buttons */
 .modal-content button {
-  padding: 10px 16px;
+  padding: 8px 14px;
   border: none;
   background: #2f3640;
   color: white;
   border-radius: 6px;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.modal-content button:hover {
-  background: #1f252a;
-}
-
-/* Close button */
 .close-btn {
+  float: right;
   background: none;
   color: #2f3640;
   font-size: 1.2rem;
-  float: right;
   cursor: pointer;
 }
 
-/* Audio button placeholder */
-.audio-btn {
-  background: #f4f1ea;
-  border: 1px solid #2f3640;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+/* FAVORITES LIST */
+#favoritesList p {
+  margin-bottom: 15px;
   font-size: 0.9rem;
-  margin-top: 10px;
-  transition: all 0.2s ease;
+  line-height: 1.6;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
 }
 
-.audio-btn:hover {
-  background: #eae6de;
-  transform: translateY(-1px);
+/* DARK MODE */
+body.dark {
+  background: #1e1f22;
+  color: #e4e4e4;
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 0.85rem;
-  color: #8a8a8a;
+body.dark .card,
+body.dark .modal-content {
+  background: #2b2d31;
+  border-color: #3c3f45;
 }
 
-/* Mobile Optimization */
+body.dark .icon-btn {
+  border-color: #e4e4e4;
+  color: #e4e4e4;
+}
+
+body.dark .icon-btn:hover {
+  background: #e4e4e4;
+  color: #1e1f22;
+}
+
+body.dark footer {
+  color: #aaa;
+}
+
+/* MOBILE */
 @media (max-width: 480px) {
   body {padding: 20px 10px;}
-  .card {padding: 18px;}
-  h1 {font-size: 1.7rem;}
-  .modal-content {padding: 22px;}
-  .reset-button {padding: 12px;}
-}
-
-/* Modal text fade on next */
-.fade-text {
-  animation: textFade 0.25s ease;
-}
-
-@keyframes textFade {
-  from {opacity: 0;}
-  to {opacity: 1;}
 }
