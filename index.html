@@ -7,83 +7,67 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>Still Standing</h1>
+    <p id="welcomeMsg">Welcome, [Name]</p>
+    <button id="darkModeToggle">🌙</button>
+    <button id="favoritesBtn">⭐ Favorites</button>
+  </header>
 
-  <div class="app">
-    <header>
-      <div class="top-bar">
-        <h1>Still Standing</h1>
+  <main>
+    <section id="dailySection">
+      <h2>Today's Anchor</h2>
+      <div id="dailyMessage" class="message"></div>
+      <button id="nextDaily">Next Message →</button>
+      <button id="saveDaily">💾 Save</button>
+    </section>
 
-        <div class="header-actions">
-          <button class="icon-btn" onclick="openFavorites()">★</button>
-          <button class="icon-btn" onclick="toggleDarkMode()">☾</button>
-        </div>
+    <section id="categoriesSection">
+      <h2>Life Categories</h2>
+      <div class="category" data-file="financial.json">
+        <h3>💰 Financial Pressure</h3>
+        <div class="messagesContainer"></div>
+        <button class="nextCategory">Next →</button>
       </div>
-
-      <p class="tagline">Practical life navigation for adults rebuilding after 35.</p>
-    </header>
-
-    <main>
-
-      <section class="card daily-card">
-        <h2>🧭 Today’s Anchor</h2>
-        <p id="dailyMessage">Loading today’s message...</p>
-      </section>
-
-      <section class="card" onclick="openSection('financial')">
-        <h2>💰 Financial Pressure</h2>
-        <p>Reducing pressure. Protecting clarity. Rebuilding without shame.</p>
-      </section>
-
-      <section class="card" onclick="openSection('immigration')">
-        <h2>🌍 Immigration & Systems</h2>
-        <p>Navigating unfamiliar systems without losing confidence.</p>
-      </section>
-
-      <section class="card" onclick="openSection('burnout')">
-        <h2>😮‍💨 Burnout & Mental Load</h2>
-        <p>Functioning while exhausted. Restoring perspective.</p>
-      </section>
-
-      <section class="card" onclick="openSection('relationships')">
-        <h2>💍 Relationships</h2>
-        <p>Marriage, friendships, parenting, and boundaries.</p>
-      </section>
-
-      <section class="card" onclick="openSection('isolation')">
-        <h2>🌫️ Isolation</h2>
-        <p>Loneliness, starting over, and rebuilding connection.</p>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- CATEGORY MODAL -->
-  <div id="modal" class="modal hidden">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()">×</button>
-      <h2 id="modalTitle"></h2>
-      <p id="modalDescription"></p>
-      <p id="modalText" class="fade-text"></p>
-
-      <div class="modal-actions">
-        <button onclick="saveFavorite()">Save ★</button>
-        <button onclick="nextItem()">Next</button>
+      <div class="category" data-file="immigration.json">
+        <h3>🌍 Immigration & Systems</h3>
+        <div class="messagesContainer"></div>
+        <button class="nextCategory">Next →</button>
       </div>
+      <div class="category" data-file="burnout.json">
+        <h3>😮‍💨 Burnout & Mental Load</h3>
+        <div class="messagesContainer"></div>
+        <button class="nextCategory">Next →</button>
+      </div>
+      <div class="category" data-file="relationships.json">
+        <h3>💍 Relationships & Isolation</h3>
+        <div class="messagesContainer"></div>
+        <button class="nextCategory">Next →</button>
+      </div>
+      <div class="category" data-file="reset.json">
+        <h3>🌫️ Isolation / Reset</h3>
+        <div class="messagesContainer"></div>
+        <button class="nextCategory">Next →</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Favorites Modal -->
+  <div id="favoritesModal" class="modal">
+    <div class="modalContent">
+      <span class="closeModal">&times;</span>
+      <h3>Your Saved Messages</h3>
+      <div id="favoritesContainer"></div>
     </div>
   </div>
 
-  <!-- FAVORITES MODAL -->
-  <div id="favoritesModal" class="modal hidden">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeFavorites()">×</button>
-      <h2>Your Saved Messages</h2>
-      <div id="favoritesList"></div>
+  <!-- Save Confirmation Modal -->
+  <div id="saveModal" class="modal">
+    <div class="modalContent">
+      <p>This message has been saved!</p>
+      <button id="closeSaveModal">Close</button>
     </div>
   </div>
-
-  <footer>
-    <p>© 2026 Still Standing | Private support for adults navigating life after 35.</p>
-  </footer>
 
   <script src="app.js"></script>
 </body>
