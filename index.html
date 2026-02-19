@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Still Standing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <header>
+      <div class="top-bar">
+        <h1>Still Standing</h1>
+
+        <div class="header-actions">
+          <button class="icon-btn" onclick="openFavorites()">★</button>
+          <button class="icon-btn" onclick="toggleDarkMode()">☾</button>
+        </div>
+      </div>
+
+      <p class="tagline">Practical life navigation for adults rebuilding after 35.</p>
+    </header>
+
+    <main>
+
+      <section class="card daily-card">
+        <h2>🧭 Today’s Anchor</h2>
+        <p id="dailyMessage">Loading today’s message...</p>
+      </section>
+
+      <section class="card" onclick="openSection('financial')">
+        <h2>💰 Financial Pressure</h2>
+        <p>Reducing pressure. Protecting clarity. Rebuilding without shame.</p>
+      </section>
+
+      <section class="card" onclick="openSection('immigration')">
+        <h2>🌍 Immigration & Systems</h2>
+        <p>Navigating unfamiliar systems without losing confidence.</p>
+      </section>
+
+      <section class="card" onclick="openSection('burnout')">
+        <h2>😮‍💨 Burnout & Mental Load</h2>
+        <p>Functioning while exhausted. Restoring perspective.</p>
+      </section>
+
+      <section class="card" onclick="openSection('relationships')">
+        <h2>💍 Relationships</h2>
+        <p>Marriage, friendships, parenting, and boundaries.</p>
+      </section>
+
+      <section class="card" onclick="openSection('isolation')">
+        <h2>🌫️ Isolation</h2>
+        <p>Loneliness, starting over, and rebuilding connection.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- CATEGORY MODAL -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+      <p id="modalText" class="fade-text"></p>
+
+      <div class="modal-actions">
+        <button onclick="saveFavorite()">Save ★</button>
+        <button onclick="nextItem()">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAVORITES MODAL -->
+  <div id="favoritesModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeFavorites()">×</button>
+      <h2>Your Saved Messages</h2>
+      <div id="favoritesList"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Still Standing | Private support for adults navigating life after 35.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
