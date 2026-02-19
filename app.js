@@ -1,97 +1,107 @@
-let currentSection = "";
-let currentIndex = 0;
-let sectionData = [];
+const dailyMessages = [
+  "Today’s Anchor: If you survived yesterday, you’re already winning.",
+  "Today’s Anchor: Reduce pressure first, not tasks.",
+  "Today’s Anchor: One step at a time is progress.",
+];
 
-const sectionDescriptions = {
-  financial: "Guidance for reducing financial pressure and rebuilding stability.",
-  immigration: "Support for navigating systems and transition.",
-  burnout: "Clarity and grounding while functioning under exhaustion.",
-  relationships: "Perspective for marriage, parenting, and boundaries.",
-  isolation: "Understanding loneliness and rebuilding connection."
-};
+let currentDaily = 0;
+let favorites = [];
 
-/* DAILY ROTATING MESSAGE */
-function loadDailyMessage() {
-  fetch("data/financial.json")
-    .then(res => res.json())
-    .then(data => {
-      const dayIndex = new Date().getDate() % data.length;
-      document.getElementById("dailyMessage").innerText = data[dayIndex];
-    });
+const dailyMsgEl = document.getElementById("dailyMessage");
+const nextDailyBtn = document.getElementById("nextDaily");
+const saveDailyBtn = document.getElementById("saveDaily");
+const saveModal = document.getElementById("saveModal");
+const closeSaveModal = document.getElementById("closeSaveModal");
+
+const favoritesBtn = document.getElementById("favoritesBtn");
+const favoritesModal = document.getElementById("favoritesModal");
+const closeFavModal = favoritesModal.querySelector(".closeModal");
+const favoritesContainer = document.getElementById("favoritesContainer");
+
+const darkModeToggle = document.getElementById("darkModeToggle");
+
+// Daily rotating message
+function showDailyMessage() {
+  dailyMsgEl.innerText = dailyMessages[currentDaily];
 }
+showDailyMessage();
 
-loadDailyMessage();
+nextDailyBtn.addEventListener("click", () => {
+  currentDaily = (currentDaily + 1) % dailyMessages.length;
+  showDailyMessage();
+});
 
-/* OPEN CATEGORY */
-function openSection(section) {
-  currentSection = section;
-  currentIndex = 0;
-
-  fetch(`data/${section}.json`)
-    .then(res => res.json())
-    .then(data => {
-      sectionData = data;
-
-      document.getElementById("modalTitle").innerText =
-        section.charAt(0).toUpperCase() + section.slice(1);
-
-      document.getElementById("modalDescription").innerText =
-        sectionDescriptions[section];
-
-      showMessage();
-      document.getElementById("modal").classList.remove("hidden");
-    });
-}
-
-function showMessage() {
-  const textElement = document.getElementById("modalText");
-  textElement.innerText = sectionData[currentIndex];
-}
-
-function nextItem() {
-  currentIndex = (currentIndex + 1) % sectionData.length;
-  showMessage();
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
-}
-
-/* FAVORITES */
-function saveFavorite() {
-  const message = sectionData[currentIndex];
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-  if (!favorites.includes(message)) {
-    favorites.push(message);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    alert("Saved to favorites.");
-  }
-}
-
-function openFavorites() {
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-  const list = document.getElementById("favoritesList");
-  list.innerHTML = "";
-
-  if (favorites.length === 0) {
-    list.innerHTML = "<p>No saved messages yet.</p>";
+// Save/unsave daily message
+saveDailyBtn.addEventListener("click", () => {
+  const msg = dailyMessages[currentDaily];
+  if (!favorites.includes(msg)) {
+    favorites.push(msg);
+    showSaveModal();
   } else {
-    favorites.forEach(msg => {
-      const p = document.createElement("p");
-      p.innerText = msg;
-      list.appendChild(p);
-    });
+    favorites = favorites.filter(m => m !== msg);
   }
+});
 
-  document.getElementById("favoritesModal").classList.remove("hidden");
+function showSaveModal() {
+  saveModal.style.display = "block";
 }
 
-function closeFavorites() {
-  document.getElementById("favoritesModal").classList.add("hidden");
+closeSaveModal.addEventListener("click", () => {
+  saveModal.style.display = "none";
+});
+
+// Favorites modal
+favoritesBtn.addEventListener("click", () => {
+  renderFavorites();
+  favoritesModal.style.display = "block";
+});
+
+closeFavModal.addEventListener("click", () => {
+  favoritesModal.style.display = "none";
+});
+
+function renderFavorites() {
+  favoritesContainer.innerHTML = "";
+  if (favorites.length === 0) {
+    favoritesContainer.innerHTML = "<p>No saved messages yet.</p>";
+    return;
+  }
+  favorites.forEach(msg => {
+    const div = document.createElement("div");
+    div.classList.add("message");
+    div.innerText = msg;
+    favoritesContainer.appendChild(div);
+  });
 }
 
-/* DARK MODE */
-function toggleDarkMode() {
-  document.body.classList.toggle("dark");
+// Dark mode toggle
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+});
+
+// Load category messages
+const categories = document.querySelectorAll(".category");
+categories.forEach(cat => {
+  let messages = [];
+  let current = 0;
+  fetch(`data/${cat.dataset.file}`)
+    .then(res => res.json())
+    .then(data => {
+      messages = data;
+      renderCategory(cat, messages, current);
+      const nextBtn = cat.querySelector(".nextCategory");
+      nextBtn.addEventListener("click", () => {
+        current = (current + 1) % messages.length;
+        renderCategory(cat, messages, current);
+      });
+    });
+});
+
+function renderCategory(cat, messages, index) {
+  const container = cat.querySelector(".messagesContainer");
+  container.innerHTML = "";
+  const div = document.createElement("div");
+  div.classList.add("message");
+  div.innerText = messages[index];
+  container.appendChild(div);
 }
