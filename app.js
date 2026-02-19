@@ -1,107 +1,88 @@
-const dailyMessages = [
-  "Today’s Anchor: If you survived yesterday, you’re already winning.",
-  "Today’s Anchor: Reduce pressure first, not tasks.",
-  "Today’s Anchor: One step at a time is progress.",
-];
-
-let currentDaily = 0;
-let favorites = [];
-
-const dailyMsgEl = document.getElementById("dailyMessage");
-const nextDailyBtn = document.getElementById("nextDaily");
-const saveDailyBtn = document.getElementById("saveDaily");
-const saveModal = document.getElementById("saveModal");
-const closeSaveModal = document.getElementById("closeSaveModal");
-
-const favoritesBtn = document.getElementById("favoritesBtn");
-const favoritesModal = document.getElementById("favoritesModal");
-const closeFavModal = favoritesModal.querySelector(".closeModal");
-const favoritesContainer = document.getElementById("favoritesContainer");
-
-const darkModeToggle = document.getElementById("darkModeToggle");
-
-// Daily rotating message
-function showDailyMessage() {
-  dailyMsgEl.innerText = dailyMessages[currentDaily];
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fefefe;
+  color: #111;
+  margin: 0;
+  padding: 0;
 }
-showDailyMessage();
-
-nextDailyBtn.addEventListener("click", () => {
-  currentDaily = (currentDaily + 1) % dailyMessages.length;
-  showDailyMessage();
-});
-
-// Save/unsave daily message
-saveDailyBtn.addEventListener("click", () => {
-  const msg = dailyMessages[currentDaily];
-  if (!favorites.includes(msg)) {
-    favorites.push(msg);
-    showSaveModal();
-  } else {
-    favorites = favorites.filter(m => m !== msg);
-  }
-});
-
-function showSaveModal() {
-  saveModal.style.display = "block";
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #dbe9f4;
 }
-
-closeSaveModal.addEventListener("click", () => {
-  saveModal.style.display = "none";
-});
-
-// Favorites modal
-favoritesBtn.addEventListener("click", () => {
-  renderFavorites();
-  favoritesModal.style.display = "block";
-});
-
-closeFavModal.addEventListener("click", () => {
-  favoritesModal.style.display = "none";
-});
-
-function renderFavorites() {
-  favoritesContainer.innerHTML = "";
-  if (favorites.length === 0) {
-    favoritesContainer.innerHTML = "<p>No saved messages yet.</p>";
-    return;
-  }
-  favorites.forEach(msg => {
-    const div = document.createElement("div");
-    div.classList.add("message");
-    div.innerText = msg;
-    favoritesContainer.appendChild(div);
-  });
+button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  border: none;
+  border-radius: 5px;
+  background: #a8d0e6;
+  color: #111;
+  transition: 0.2s;
 }
-
-// Dark mode toggle
-darkModeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-});
-
-// Load category messages
-const categories = document.querySelectorAll(".category");
-categories.forEach(cat => {
-  let messages = [];
-  let current = 0;
-  fetch(`data/${cat.dataset.file}`)
-    .then(res => res.json())
-    .then(data => {
-      messages = data;
-      renderCategory(cat, messages, current);
-      const nextBtn = cat.querySelector(".nextCategory");
-      nextBtn.addEventListener("click", () => {
-        current = (current + 1) % messages.length;
-        renderCategory(cat, messages, current);
-      });
-    });
-});
-
-function renderCategory(cat, messages, index) {
-  const container = cat.querySelector(".messagesContainer");
-  container.innerHTML = "";
-  const div = document.createElement("div");
-  div.classList.add("message");
-  div.innerText = messages[index];
-  container.appendChild(div);
+button:hover {
+  background: #89c2d9;
 }
+section {
+  padding: 1rem;
+}
+.category {
+  background: #eaf4fc;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+.message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.3rem 0;
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal.hidden { display: none; }
+.modal.active { display: flex; }
+.auth-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+.auth-forms div { margin: 1rem 0; }
+#favoritesModal .modal-content {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+}
+.save-alert {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #a8d0e6;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: #111;
+  transition: 0.3s;
+}
+.save-alert.hidden { display: none; }
+body.dark {
+  background: #111;
+  color: #fefefe;
+}
+body.dark header { background: #22333b; }
+body.dark button { background: #556f7a; color: #fefefe; }
+body.dark .category { background: #2c3e50; }
+body.dark .modal-content { background: #334756; color: #fefefe; }
