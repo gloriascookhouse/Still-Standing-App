@@ -7,68 +7,83 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Still Standing</h1>
-    <p id="welcomeMsg">Welcome, [Name]</p>
-    <button id="darkModeToggle">🌙</button>
-    <button id="favoritesBtn">⭐ Favorites</button>
-  </header>
+  <!-- LOGIN / SIGNUP MODAL -->
+  <div id="authModal" class="modal active">
+    <div class="auth-box">
+      <h1>Still Standing</h1>
+      <div class="auth-forms">
+        <div>
+          <h2>Login</h2>
+          <input type="email" id="loginEmail" placeholder="Email">
+          <input type="password" id="loginPassword" placeholder="Password">
+          <button id="loginBtn">Login</button>
+        </div>
+        <div>
+          <h2>Sign Up</h2>
+          <input type="text" id="signupName" placeholder="Full Name">
+          <input type="email" id="signupEmail" placeholder="Email">
+          <input type="password" id="signupPassword" placeholder="Password">
+          <input type="date" id="signupDOB" placeholder="Date of Birth">
+          <button id="signupBtn">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <main>
-    <section id="dailySection">
+  <!-- MAIN APP -->
+  <div id="mainApp" class="hidden">
+    <header>
+      <h1 id="welcomeMsg"></h1>
+      <button id="darkModeToggle">🌓</button>
+      <button id="favoritesBtn">⭐ Favorites</button>
+    </header>
+
+    <section id="dailyMessageSection">
       <h2>Today's Anchor</h2>
-      <div id="dailyMessage" class="message"></div>
-      <button id="nextDaily">Next Message →</button>
-      <button id="saveDaily">💾 Save</button>
+      <p id="dailyMessage">Loading message...</p>
+      <button id="nextDaily">Next</button>
     </section>
 
-    <section id="categoriesSection">
+    <section id="categories">
       <h2>Life Categories</h2>
-      <div class="category" data-file="financial.json">
+      <div class="category" data-category="financial">
         <h3>💰 Financial Pressure</h3>
-        <div class="messagesContainer"></div>
-        <button class="nextCategory">Next →</button>
+        <div class="messages"></div>
       </div>
-      <div class="category" data-file="immigration.json">
+      <div class="category" data-category="immigration">
         <h3>🌍 Immigration & Systems</h3>
-        <div class="messagesContainer"></div>
-        <button class="nextCategory">Next →</button>
+        <div class="messages"></div>
       </div>
-      <div class="category" data-file="burnout.json">
+      <div class="category" data-category="burnout">
         <h3>😮‍💨 Burnout & Mental Load</h3>
-        <div class="messagesContainer"></div>
-        <button class="nextCategory">Next →</button>
+        <div class="messages"></div>
       </div>
-      <div class="category" data-file="relationships.json">
-        <h3>💍 Relationships & Isolation</h3>
-        <div class="messagesContainer"></div>
-        <button class="nextCategory">Next →</button>
+      <div class="category" data-category="relationships">
+        <h3>💍 Relationships</h3>
+        <div class="messages"></div>
       </div>
-      <div class="category" data-file="reset.json">
-        <h3>🌫️ Isolation / Reset</h3>
-        <div class="messagesContainer"></div>
-        <button class="nextCategory">Next →</button>
+      <div class="category" data-category="isolation">
+        <h3>🌫️ Isolation</h3>
+        <div class="messages"></div>
       </div>
     </section>
-  </main>
 
-  <!-- Favorites Modal -->
-  <div id="favoritesModal" class="modal">
-    <div class="modalContent">
-      <span class="closeModal">&times;</span>
-      <h3>Your Saved Messages</h3>
-      <div id="favoritesContainer"></div>
+    <!-- FAVORITES MODAL -->
+    <div id="favoritesModal" class="modal hidden">
+      <div class="modal-content">
+        <h2>Saved Messages</h2>
+        <div id="favoritesList"></div>
+        <button id="closeFavorites">Close</button>
+      </div>
     </div>
-  </div>
 
-  <!-- Save Confirmation Modal -->
-  <div id="saveModal" class="modal">
-    <div class="modalContent">
+    <!-- SAVE ALERT -->
+    <div id="saveAlert" class="save-alert hidden">
       <p>This message has been saved!</p>
-      <button id="closeSaveModal">Close</button>
     </div>
   </div>
 
+  <script src="auth.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
