@@ -1,97 +1,134 @@
-let currentSection = "";
-let currentIndex = 0;
-let sectionData = [];
+const API_URL = 'http://localhost:5000'; // backend
+let currentDailyIndex = 0;
+let dailyMessages = [];
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-const sectionDescriptions = {
-  financial: "Guidance for reducing financial pressure and rebuilding stability.",
-  immigration: "Support for navigating systems and transition.",
-  burnout: "Clarity and grounding while functioning under exhaustion.",
-  relationships: "Perspective for marriage, parenting, and boundaries.",
-  isolation: "Understanding loneliness and rebuilding connection."
-};
+// LOGIN & SIGNUP HANDLERS
+const authModal = document.getElementById('authModal');
+const mainApp = document.getElementById('mainApp');
 
-/* DAILY ROTATING MESSAGE */
-function loadDailyMessage() {
-  fetch("data/financial.json")
-    .then(res => res.json())
-    .then(data => {
-      const dayIndex = new Date().getDate() % data.length;
-      document.getElementById("dailyMessage").innerText = data[dayIndex];
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+
+  const res = await fetch(`${API_URL}/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password })
+  });
+  const data = await res.json();
+  if (res.ok) {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('name', data.user.name);
+    showMainApp();
+  } else alert(data.message || 'Login failed');
+});
+
+document.getElementById('signupBtn').addEventListener('click', async () => {
+  const name = document.getElementById('signupName').value;
+  const email = document.getElementById('signupEmail').value;
+  const password = document.getElementById('signupPassword').value;
+  const dob = document.getElementById('signupDOB').value;
+  const age = new Date().getFullYear() - new Date(dob).getFullYear();
+  if (age < 16) return alert('You must be at least 16');
+
+  const res = await fetch(`${API_URL}/auth/signup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, password, dob })
+  });
+  const data = await res.json();
+  if (res.ok) alert('Signup successful! Please login.');
+  else alert(data.message || 'Signup failed');
+});
+
+function showMainApp() {
+  authModal.classList.add('hidden');
+  mainApp.classList.remove('hidden');
+  document.getElementById('welcomeMsg').innerText = `Welcome, ${localStorage.getItem('name')}`;
+  loadDailyMessages();
+  loadCategories();
+}
+
+// LOAD DAILY MESSAGES
+async function loadDailyMessages() {
+  const res = await fetch('./data/anchors.json');
+  dailyMessages = await res.json();
+  showDailyMessage();
+}
+
+function showDailyMessage() {
+  const msgEl = document.getElementById('dailyMessage');
+  msgEl.innerText = dailyMessages[currentDailyIndex]?.message || 'No messages loaded.';
+}
+
+document.getElementById('nextDaily').addEventListener('click', () => {
+  currentDailyIndex = (currentDailyIndex + 1) % dailyMessages.length;
+  showDailyMessage();
+});
+
+// LOAD CATEGORY MESSAGES
+async function loadCategories() {
+  const categories = ['financial','immigration','burnout','relationships','isolation'];
+  for (let cat of categories) {
+    const res = await fetch(`./data/${cat}.json`);
+    const messages = await res.json();
+    const container = document.querySelector(`.category[data-category="${cat}"] .messages`);
+    messages.forEach((m, i) => {
+      const div = document.createElement('div');
+      div.className = 'message';
+      div.innerHTML = `
+        <p>${m}</p>
+        <button class="saveBtn">${favorites.includes(m) ? 'Unsave' : 'Save'}</button>
+      `;
+      const btn = div.querySelector('.saveBtn');
+      btn.addEventListener('click', () => toggleFavorite(m, btn));
+      container.appendChild(div);
     });
-}
-
-loadDailyMessage();
-
-/* OPEN CATEGORY */
-function openSection(section) {
-  currentSection = section;
-  currentIndex = 0;
-
-  fetch(`data/${section}.json`)
-    .then(res => res.json())
-    .then(data => {
-      sectionData = data;
-
-      document.getElementById("modalTitle").innerText =
-        section.charAt(0).toUpperCase() + section.slice(1);
-
-      document.getElementById("modalDescription").innerText =
-        sectionDescriptions[section];
-
-      showMessage();
-      document.getElementById("modal").classList.remove("hidden");
-    });
-}
-
-function showMessage() {
-  const textElement = document.getElementById("modalText");
-  textElement.innerText = sectionData[currentIndex];
-}
-
-function nextItem() {
-  currentIndex = (currentIndex + 1) % sectionData.length;
-  showMessage();
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
-}
-
-/* FAVORITES */
-function saveFavorite() {
-  const message = sectionData[currentIndex];
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-  if (!favorites.includes(message)) {
-    favorites.push(message);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    alert("Saved to favorites.");
   }
 }
 
-function openFavorites() {
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-  const list = document.getElementById("favoritesList");
-  list.innerHTML = "";
+// FAVORITES
+const favoritesModal = document.getElementById('favoritesModal');
+document.getElementById('favoritesBtn').addEventListener('click', () => {
+  renderFavorites();
+  favoritesModal.classList.remove('hidden');
+});
+document.getElementById('closeFavorites').addEventListener('click', () => {
+  favoritesModal.classList.add('hidden');
+});
 
-  if (favorites.length === 0) {
-    list.innerHTML = "<p>No saved messages yet.</p>";
+function toggleFavorite(msg, btn) {
+  if (favorites.includes(msg)) {
+    favorites = favorites.filter(f => f !== msg);
+    btn.innerText = 'Save';
   } else {
-    favorites.forEach(msg => {
-      const p = document.createElement("p");
-      p.innerText = msg;
-      list.appendChild(p);
-    });
+    favorites.push(msg);
+    btn.innerText = 'Unsave';
+    showSaveAlert();
   }
-
-  document.getElementById("favoritesModal").classList.remove("hidden");
+  localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-function closeFavorites() {
-  document.getElementById("favoritesModal").classList.add("hidden");
+function renderFavorites() {
+  const list = document.getElementById('favoritesList');
+  list.innerHTML = '';
+  favorites.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'favMsg';
+    div.innerText = f;
+    list.appendChild(div);
+  });
 }
 
-/* DARK MODE */
-function toggleDarkMode() {
-  document.body.classList.toggle("dark");
+// SAVE ALERT
+const saveAlert = document.getElementById('saveAlert');
+function showSaveAlert() {
+  saveAlert.classList.remove('hidden');
+  setTimeout(() => saveAlert.classList.add('hidden'), 1500);
 }
+
+// DARK MODE
+document.getElementById('darkModeToggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+});

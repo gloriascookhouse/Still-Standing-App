@@ -1,180 +1,88 @@
-* {
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fefefe;
+  color: #111;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Georgia", serif;
 }
-
-body {
-  background-color: #f4f1ea;
-  color: #2f3640;
-  padding: 40px 20px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.app {
-  max-width: 600px;
-  margin: auto;
-}
-
-/* HEADER */
-.top-bar {
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1rem;
+  background: #dbe9f4;
 }
-
-.header-actions {
-  display: flex;
-  gap: 10px;
+button {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  margin: 0.2rem;
+  border: none;
+  border-radius: 5px;
+  background: #a8d0e6;
+  color: #111;
+  transition: 0.2s;
 }
-
-.icon-btn {
-  background: transparent;
-  border: 1px solid #2f3640;
-  padding: 6px 10px;
+button:hover {
+  background: #89c2d9;
+}
+section {
+  padding: 1rem;
+}
+.category {
+  background: #eaf4fc;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
   border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: 0.2s ease;
 }
-
-.icon-btn:hover {
-  background: #2f3640;
-  color: white;
+.message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.3rem 0;
 }
-
-h1 {
-  font-size: 1.9rem;
-  font-weight: 500;
-}
-
-.tagline {
-  font-size: 0.9rem;
-  color: #5f6a72;
-  margin-top: 8px;
-}
-
-/* CARDS */
-.card {
-  background: white;
-  padding: 20px;
-  margin-top: 18px;
-  border-radius: 8px;
-  border: 1px solid #e0ddd6;
-  cursor: pointer;
-  transition: 0.25s ease;
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-}
-
-.card h2 {
-  margin-bottom: 8px;
-  font-size: 1.1rem;
-}
-
-.card p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* DAILY CARD */
-.daily-card {
-  background: #fdfbf7;
-  border: 1px solid #d8d4cc;
-}
-
-/* MODALS */
 .modal {
   position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.hidden {
-  display: none;
-}
-
-.modal-content {
-  background: white;
-  padding: 30px;
+.modal.hidden { display: none; }
+.modal.active { display: flex; }
+.auth-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
   width: 90%;
   max-width: 500px;
-  border-radius: 10px;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-  animation: fadeIn 0.3s ease;
 }
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(-8px);}
-  to {opacity: 1; transform: translateY(0);}
+.auth-forms div { margin: 1rem 0; }
+#favoritesModal .modal-content {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
 }
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
-}
-
-.modal-content button {
-  padding: 8px 14px;
-  border: none;
-  background: #2f3640;
-  color: white;
+.save-alert {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #a8d0e6;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
-  cursor: pointer;
+  color: #111;
+  transition: 0.3s;
 }
-
-.close-btn {
-  float: right;
-  background: none;
-  color: #2f3640;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/* FAVORITES LIST */
-#favoritesList p {
-  margin-bottom: 15px;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-}
-
-/* DARK MODE */
+.save-alert.hidden { display: none; }
 body.dark {
-  background: #1e1f22;
-  color: #e4e4e4;
+  background: #111;
+  color: #fefefe;
 }
-
-body.dark .card,
-body.dark .modal-content {
-  background: #2b2d31;
-  border-color: #3c3f45;
-}
-
-body.dark .icon-btn {
-  border-color: #e4e4e4;
-  color: #e4e4e4;
-}
-
-body.dark .icon-btn:hover {
-  background: #e4e4e4;
-  color: #1e1f22;
-}
-
-body.dark footer {
-  color: #aaa;
-}
-
-/* MOBILE */
-@media (max-width: 480px) {
-  body {padding: 20px 10px;}
-}
+body.dark header { background: #22333b; }
+body.dark button { background: #556f7a; color: #fefefe; }
+body.dark .category { background: #2c3e50; }
+body.dark .modal-content { background: #334756; color: #fefefe; }
