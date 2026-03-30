@@ -2,88 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Still Standing</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- LOGIN / SIGNUP MODAL -->
-  <div id="authModal" class="modal active">
-    <div class="auth-box">
-      <h1>Still Standing</h1>
-      <div class="auth-forms">
-        <div>
-          <h2>Login</h2>
-          <input type="email" id="loginEmail" placeholder="Email">
-          <input type="password" id="loginPassword" placeholder="Password">
-          <button id="loginBtn">Login</button>
-        </div>
-        <div>
-          <h2>Sign Up</h2>
-          <input type="text" id="signupName" placeholder="Full Name">
-          <input type="email" id="signupEmail" placeholder="Email">
-          <input type="password" id="signupPassword" placeholder="Password">
-          <input type="date" id="signupDOB" placeholder="Date of Birth">
-          <button id="signupBtn">Sign Up</button>
-        </div>
-      </div>
-    </div>
+
+<!-- LANDING -->
+<div id="landing">
+  <h1>Still Standing</h1>
+  <div class="buttons">
+    <button id="showLogin">Login</button>
+    <button id="showSignup">Sign Up</button>
+  </div>
+</div>
+
+<!-- AUTH FORMS -->
+<div id="authForms" class="hidden">
+  <div id="loginForm" class="form hidden">
+    <h2>Login</h2>
+    <input id="loginEmail" placeholder="Email">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
   </div>
 
-  <!-- MAIN APP -->
-  <div id="mainApp" class="hidden">
-    <header>
-      <h1 id="welcomeMsg"></h1>
-      <button id="darkModeToggle">🌓</button>
-      <button id="favoritesBtn">⭐ Favorites</button>
-    </header>
-
-    <section id="dailyMessageSection">
-      <h2>Today's Anchor</h2>
-      <p id="dailyMessage">Loading message...</p>
-      <button id="nextDaily">Next</button>
-    </section>
-
-    <section id="categories">
-      <h2>Life Categories</h2>
-      <div class="category" data-category="financial">
-        <h3>💰 Financial Pressure</h3>
-        <div class="messages"></div>
-      </div>
-      <div class="category" data-category="immigration">
-        <h3>🌍 Immigration & Systems</h3>
-        <div class="messages"></div>
-      </div>
-      <div class="category" data-category="burnout">
-        <h3>😮‍💨 Burnout & Mental Load</h3>
-        <div class="messages"></div>
-      </div>
-      <div class="category" data-category="relationships">
-        <h3>💍 Relationships</h3>
-        <div class="messages"></div>
-      </div>
-      <div class="category" data-category="isolation">
-        <h3>🌫️ Isolation</h3>
-        <div class="messages"></div>
-      </div>
-    </section>
-
-    <!-- FAVORITES MODAL -->
-    <div id="favoritesModal" class="modal hidden">
-      <div class="modal-content">
-        <h2>Saved Messages</h2>
-        <div id="favoritesList"></div>
-        <button id="closeFavorites">Close</button>
-      </div>
-    </div>
-
-    <!-- SAVE ALERT -->
-    <div id="saveAlert" class="save-alert hidden">
-      <p>This message has been saved!</p>
-    </div>
+  <div id="signupForm" class="form hidden">
+    <h2>Sign Up</h2>
+    <input id="signupName" placeholder="Name">
+    <input id="signupEmail" placeholder="Email">
+    <input id="signupPassword" type="password" placeholder="Password">
+    <input id="signupDOB" type="date">
+    <button id="signupBtn">Create Account</button>
   </div>
+</div>
 
-  <script src="auth.js"></script>
-  <script src="app.js"></script>
+<!-- MAIN APP -->
+<div id="app" class="hidden">
+  <header>
+    <h2 id="welcome"></h2>
+  </header>
+
+  <section id="categories">
+    <h3>Life Categories</h3>
+
+    <div class="category" data-file="financial.json"></div>
+    <div class="category" data-file="immigration.json"></div>
+    <div class="category" data-file="burnout.json"></div>
+    <div class="category" data-file="relationships.json"></div>
+    <div class="category" data-file="isolation.json"></div>
+
+  </section>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
